@@ -12,3 +12,5 @@ Funcionalidade: Cadastro de nova schedule
       | endTime   | 2024-05-27T12:34:56 |
     Quando eu enviar a requisição para o endpoint "/api/schedules" de cadastro de schedules
     Então o status code da resposta deve ser 201
+    E que o arquivo de contrato esperado é o "Cadastro Schedule bem-sucedido"
+    Então a resposta da requisição deve estar em conformidade com o contrato selecionado

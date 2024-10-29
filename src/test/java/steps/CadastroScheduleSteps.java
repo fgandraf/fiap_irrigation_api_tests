@@ -1,13 +1,17 @@
 package steps;
 
+import com.networknt.schema.ValidationMessage;
 import io.cucumber.java.pt.Dado;
+import io.cucumber.java.pt.E;
 import io.cucumber.java.pt.Então;
 import io.cucumber.java.pt.Quando;
 import org.junit.Assert;
 import services.CadastroScheduleService;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class CadastroScheduleSteps {
 
@@ -43,5 +47,16 @@ public class CadastroScheduleSteps {
     @Dado("que eu recupere o ID da schedule criada no contexto e some um")
     public void queEuRecupereOIDDaScheduleCriadaNoContextoESomeUm() {
         cadastroScheduleService.retrieveIdDelivery(false);
+    }
+
+    @E("que o arquivo de contrato esperado é o {string}")
+    public void queOArquivoDeContratoEsperadoÉO(String contrato) throws IOException {
+        cadastroScheduleService.setContract(contrato);
+    }
+
+    @Então("a resposta da requisição deve estar em conformidade com o contrato selecionado")
+    public void aRespostaDaRequisiçãoDeveEstarEmConformidadeComOContratoSelecionado() throws IOException {
+        Set<ValidationMessage> validateResponse = cadastroScheduleService.validateResponseAgainstSchema();
+        Assert.assertTrue("O contrato está inválido. Erros encontrados: " + validateResponse, validateResponse.isEmpty());
     }
 }

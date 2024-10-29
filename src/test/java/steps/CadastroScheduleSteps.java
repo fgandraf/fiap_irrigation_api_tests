@@ -4,7 +4,6 @@ import io.cucumber.java.pt.Dado;
 import io.cucumber.java.pt.Então;
 import io.cucumber.java.pt.Quando;
 import org.junit.Assert;
-import org.junit.Before;
 import services.CadastroScheduleService;
 
 import java.util.List;
@@ -29,5 +28,20 @@ public class CadastroScheduleSteps {
     @Então("o status code da resposta deve ser {int}")
     public void oStatusCodeDaRespostaDeveSer(int statusCode) {
         Assert.assertEquals(statusCode, cadastroScheduleService.response.getStatusCode());
+    }
+
+    @Dado("que eu recupere o ID da schedule criada no contexto")
+    public void queEuRecupereOIDDaScheduleCriadaNoContexto() {
+        cadastroScheduleService.retrieveIdDelivery(true);
+    }
+
+    @Quando("eu enviar a requisição com o ID para o endpoint {string} de deleção de schedules")
+    public void euEnviarARequisiçãoComOIDParaOEndpointDeDeleçãoDeSchedules(String endpoint) {
+        cadastroScheduleService.deleteDelivery(endpoint);
+    }
+
+    @Dado("que eu recupere o ID da schedule criada no contexto e some um")
+    public void queEuRecupereOIDDaScheduleCriadaNoContextoESomeUm() {
+        cadastroScheduleService.retrieveIdDelivery(false);
     }
 }

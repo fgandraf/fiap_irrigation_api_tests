@@ -7,7 +7,7 @@ import lombok.Data;
 public class ScheduleModel {
 
     @Expose(serialize = false)
-    private int numSchedule;
+    private int id;
 
     @Expose
     private String startTime;

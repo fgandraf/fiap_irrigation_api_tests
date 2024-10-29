@@ -13,6 +13,7 @@ public class CadastroScheduleService {
     final ScheduleModel scheduleModel = new ScheduleModel();
     public final Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
     private String token;
+    private String idDelivery;
     public Response response;
     String baseUrl = "http://localhost:8080";
 
@@ -31,7 +32,7 @@ public class CadastroScheduleService {
 
     public void setFieldsDelivery(String field, String value) {
         switch (field) {
-            case "numSchedule" -> scheduleModel.setNumSchedule(Integer.parseInt(value));
+            case "id" -> scheduleModel.setId(Integer.parseInt(value));
             case "startTime" -> scheduleModel.setStartTime(value);
             case "endTime" -> scheduleModel.setEndTime(value);
             default -> throw new IllegalStateException("Unexpected field" + field);
@@ -55,6 +56,25 @@ public class CadastroScheduleService {
                 .then()
                 .extract()
                 .response();
+        System.out.println(response.jsonPath().prettify());
+    }
+
+    public void deleteDelivery(String endpoint){
+        this.authenticate();
+        String url = String.format("%s%s/%s", baseUrl, endpoint, idDelivery);
+        response = given()
+                .accept(ContentType.JSON)
+                .header("Authorization", "Bearer " + token)
+                .when()
+                .delete(url)
+                .then()
+                .extract()
+                .response();
+    }
+
+    public void retrieveIdDelivery(boolean valid){
+        if(valid) idDelivery = String.valueOf(gson.fromJson(response.jsonPath().prettify(), ScheduleModel.class).getId());
+        else idDelivery = String.valueOf(gson.fromJson(response.jsonPath().prettify(), ScheduleModel.class).getId() + 1);
     }
 
 }

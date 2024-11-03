@@ -1,0 +1,51 @@
+{
+  "definitions": {},
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://example.com/object1730224062.json",
+  "title": "Root",
+  "type": "object",
+  "required": [
+    "id",
+    "description",
+    "location",
+    "size"
+  ],
+  "properties": {
+    "id": {
+      "$id": "#root/id",
+      "title": "Id",
+      "type": "integer",
+      "examples": [
+        16
+      ],
+      "default": 0
+    },
+    "description": {
+      "$id": "#root/description",
+      "title": "Description",
+      "type": "string",
+      "default": "",
+      "examples": [
+        "Asa Norte"
+      ]
+    },
+    "location": {
+      "$id": "#root/location",
+      "title": "Location",
+      "type": "string",
+      "default": "",
+      "examples": [
+        "Parque ABC"
+      ]
+    },
+    "size": {
+      "$id": "#root/size",
+      "title": "Size",
+      "type": "string",
+      "default": "",
+      "examples": [
+        "26"
+      ]
+    }
+  }
+}

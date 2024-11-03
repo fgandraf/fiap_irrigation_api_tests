@@ -7,7 +7,6 @@ import io.cucumber.java.pt.Então;
 import io.cucumber.java.pt.Quando;
 import org.junit.Assert;
 import services.CadastroScheduleService;
-
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
@@ -29,9 +28,14 @@ public class CadastroScheduleSteps {
         cadastroScheduleService.createDelivery(endpoint);
     }
 
-    @Então("o status code da resposta deve ser {int}")
-    public void oStatusCodeDaRespostaDeveSer(int statusCode) {
-        Assert.assertEquals(statusCode, cadastroScheduleService.response.getStatusCode());
+    @Então("o status code da resposta do schedule deve ser {int}")
+    public void oStatusCodeDaRespostaDoScheduleDeveSer(int arg0) {
+        Assert.assertEquals(arg0, cadastroScheduleService.response.getStatusCode());
+    }
+
+    @Então("o status code da resposta da schedule deve ser {int}")
+    public void oStatusCodeDaRespostaDaScheduleDeveSer(int arg0) {
+        Assert.assertEquals(arg0, cadastroScheduleService.response.getStatusCode());
     }
 
     @Dado("que eu recupere o ID da schedule criada no contexto")
@@ -49,14 +53,17 @@ public class CadastroScheduleSteps {
         cadastroScheduleService.retrieveIdDelivery(false);
     }
 
-    @E("que o arquivo de contrato esperado é o {string}")
+    @E("que o arquivo de contrato da schedule esperado é o {string}")
     public void queOArquivoDeContratoEsperadoÉO(String contrato) throws IOException {
         cadastroScheduleService.setContract(contrato);
     }
 
-    @Então("a resposta da requisição deve estar em conformidade com o contrato selecionado")
+    @Então("a resposta da requisição deve estar em conformidade com o contrato selecionado da schedule")
     public void aRespostaDaRequisiçãoDeveEstarEmConformidadeComOContratoSelecionado() throws IOException {
         Set<ValidationMessage> validateResponse = cadastroScheduleService.validateResponseAgainstSchema();
         Assert.assertTrue("O contrato está inválido. Erros encontrados: " + validateResponse, validateResponse.isEmpty());
     }
+
+
+
 }
